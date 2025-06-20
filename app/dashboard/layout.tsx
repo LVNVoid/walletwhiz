@@ -4,21 +4,13 @@ import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: { userId: string };
 }) {
   const { userId: clerkUserId } = await auth();
 
-  const { userId } = await params;
-
   if (!clerkUserId) {
     redirect("/sign-in");
-  }
-
-  if (userId !== clerkUserId) {
-    redirect("/");
   }
 
   return (

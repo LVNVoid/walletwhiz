@@ -24,7 +24,7 @@ export default function LandingPage() {
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Button asChild size="lg">
-            <Link href="/login">Get Started</Link>
+            <Link href="/sign-up">Get Started</Link>
           </Button>
           <Button asChild variant="outline" size="lg">
             <Link href="#features">Learn More</Link>
