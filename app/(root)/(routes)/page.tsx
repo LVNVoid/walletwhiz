@@ -2,10 +2,9 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export default function HomePage() {
+export default function LandingPage() {
   return (
-    <section className="flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] text-center px-4">
-      {/* Logo */}
+    <section className="flex flex-col items-center justify-center min-h-[calc(100vh-8rem)] text-center px-4">
       <Image
         src="/images/WalletWhiz.png"
         alt="WalletWhiz Logo"
@@ -13,8 +12,6 @@ export default function HomePage() {
         height={150}
         className="mb-6"
       />
-
-      {/* Hero */}
       <div className="max-w-2xl space-y-6">
         <h1 className="text-4xl md:text-5xl font-bold leading-tight">
           Take Control of Your Spending with{" "}
