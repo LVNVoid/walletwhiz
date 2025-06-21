@@ -30,11 +30,11 @@ const chartData = [
 const chartConfig = {
   income: {
     label: "Income",
-    color: "var(--chart-1)",
+    color: "var(--chart-2)",
   },
   expenses: {
     label: "Expenses",
-    color: "var(--chart-2)",
+    color: "var(--chart-5)",
   },
 } satisfies ChartConfig;
 
@@ -90,20 +90,19 @@ export function FinanceChart() {
               </linearGradient>
             </defs>
 
-            {/* Area lines */}
-            <Area
-              dataKey="income"
-              type="natural"
-              fill="url(#fillIncome)"
-              stroke="var(--color-income)"
-              fillOpacity={0.4}
-              stackId="a"
-            />
             <Area
               dataKey="expenses"
               type="natural"
               fill="url(#fillExpenses)"
               stroke="var(--color-expenses)"
+              fillOpacity={0.4}
+              stackId="a"
+            />
+            <Area
+              dataKey="income"
+              type="natural"
+              fill="url(#fillIncome)"
+              stroke="var(--color-income)"
               fillOpacity={0.4}
               stackId="a"
             />

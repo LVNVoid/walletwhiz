@@ -5,7 +5,7 @@ import { RecentTransactions } from "@/components/dashboard/recent-transactions";
 
 export default async function DashboardPage() {
   return (
-    <div className="space-y-8 px-6 sm:px-0">
+    <div className="space-y-4 py-4 px-2 sm:px-4">
       <Header />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <CardStatsSection />

@@ -17,8 +17,8 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="border-b bg-background">
-      <div className="flex h-16 items-center justify-between px-4">
+    <nav className="fixed top-0 inset-x-0 z-50 border-b bg-background/40 backdrop-blur">
+      <div className="mx-auto max-w-screen-xl px-4 flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center space-x-2">
           <Image
             src="/images/WalletWhiz.png"
@@ -36,6 +36,7 @@ export default function Navbar() {
               size="icon"
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
               aria-label="Toggle theme"
+              className="text-foreground"
             >
               {theme === "light" ? (
                 <Moon className="h-5 w-5" />
