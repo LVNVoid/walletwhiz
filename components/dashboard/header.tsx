@@ -1,7 +1,10 @@
 import { PlusCircle } from "lucide-react";
 import { Button } from "../ui/button";
+import { useTransactionModal } from "@/hooks/use-transaction-modal";
 
 const Header = () => {
+  const onOpen = useTransactionModal((state) => state.onOpen);
+
   return (
     <section className="flex flex-col gap-4 items-start justify-between sm:flex-row sm:items-center p-4">
       <div className="space-y-1">
@@ -16,6 +19,7 @@ const Header = () => {
       <Button
         variant="outline"
         className="flex items-center gap-2 self-start sm:self-auto"
+        onClick={onOpen}
       >
         <PlusCircle className="w-5 h-5" />
         Add Transaction
