@@ -34,3 +34,31 @@ export async function POST(req: Request) {
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
+
+export async function GET() {
+  try {
+    const { userId } = await auth();
+
+    if (!userId) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const transactions = await db.transactions.findMany({
+      where: {
+        userId,
+      },
+      orderBy: {
+        transactionDate: "desc",
+      },
+    });
+
+    return NextResponse.json(transactions);
+  } catch (error) {
+    console.error("[TRANSACTION_GET ERROR]", error);
+    if (error instanceof Error) {
+      return new NextResponse(error.message, { status: 500 });
+    }
+
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}

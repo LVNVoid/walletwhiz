@@ -1,8 +1,15 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { TrendingUp } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import {
   Card,
   CardContent,
@@ -18,15 +25,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
-  { month: "January", income: 5000000, expenses: 2500000 },
-  { month: "February", income: 4500000, expenses: 3000000 },
-  { month: "March", income: 6000000, expenses: 2800000 },
-  { month: "April", income: 7000000, expenses: 4000000 },
-  { month: "May", income: 6500000, expenses: 3500000 },
-  { month: "June", income: 6200000, expenses: 3200000 },
-];
-
 const chartConfig = {
   income: {
     label: "Income",
@@ -39,22 +37,48 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function FinanceChart() {
+  const [chartData, setChartData] = useState<any[]>([]);
+  const [mode, setMode] = useState<"monthly" | "weekly">("monthly");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(`/api/statistics/overview?mode=${mode}`);
+      const data = await res.json();
+      setChartData(data);
+    };
+    fetchData();
+  }, [mode]);
+
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>Income & Expenses Overview</CardTitle>
-        <CardDescription>Visual trend from 6 months ago</CardDescription>
+      <CardHeader className="flex flex-row justify-between items-center">
+        <div>
+          <CardTitle>Income & Expenses Overview</CardTitle>
+          <CardDescription>
+            {mode === "monthly"
+              ? "Visual trend from last 6 months"
+              : "Weekly trend for past 6 weeks"}
+          </CardDescription>
+        </div>
+        <Select
+          value={mode}
+          onValueChange={(val) => setMode(val as "monthly" | "weekly")}
+        >
+          <SelectTrigger className="w-[120px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="monthly">Monthly</SelectItem>
+            <SelectItem value="weekly">Weekly</SelectItem>
+          </SelectContent>
+        </Select>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <AreaChart
-            accessibilityLayer
-            data={chartData}
-            margin={{ left: 12, right: 12 }}
-          >
+          <AreaChart data={chartData} margin={{ left: 12, right: 12 }}>
             <CartesianGrid vertical={false} />
             <XAxis
-              dataKey="month"
+              dataKey="period"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
@@ -62,7 +86,6 @@ export function FinanceChart() {
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
 
-            {/* Gradient fills */}
             <defs>
               <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">
                 <stop
@@ -113,11 +136,11 @@ export function FinanceChart() {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              Financial trend looking good this month
+              Financial trend looking {mode === "weekly" ? "stable" : "good"}{" "}
               <TrendingUp className="h-4 w-4" />
             </div>
             <div className="text-muted-foreground flex items-center gap-2 leading-none">
-              Based on data from the last 6 months
+              Based on {mode === "monthly" ? "6 months" : "6 weeks"} of data
             </div>
           </div>
         </div>
