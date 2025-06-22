@@ -1,7 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin 'tailwind-scrollbar';
 
 @custom-variant dark (&:is(.dark *));
+
+@layer base {
+  html.dark {
+    scrollbar-color: #52525b transparent; /* zinc-600 */
+  }
+}
 
 @theme inline {
   --color-background: var(--background);

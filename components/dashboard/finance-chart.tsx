@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TrendingUp } from "lucide-react";
+import { Lightbulb } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 import {
   Select,
@@ -24,6 +24,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+import api from "@/lib/axios";
 
 const chartConfig = {
   income: {
@@ -37,14 +38,20 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function FinanceChart() {
-  const [chartData, setChartData] = useState<any[]>([]);
+  type ChartData = {
+    period: string;
+    income: number;
+    expenses: number;
+  };
+  const [chartData, setChartData] = useState<ChartData[]>([]);
   const [mode, setMode] = useState<"monthly" | "weekly">("monthly");
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`/api/statistics/overview?mode=${mode}`);
-      const data = await res.json();
-      setChartData(data);
+      const res = await api.get(
+        `/api/transactions/stats/overview?mode=${mode}`
+      );
+      setChartData(res.data);
     };
     fetchData();
   }, [mode]);
@@ -57,7 +64,7 @@ export function FinanceChart() {
           <CardDescription>
             {mode === "monthly"
               ? "Visual trend from last 6 months"
-              : "Weekly trend for past 6 weeks"}
+              : "Weekly trend for this month"}
           </CardDescription>
         </div>
         <Select
@@ -75,14 +82,17 @@ export function FinanceChart() {
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
-          <AreaChart data={chartData} margin={{ left: 12, right: 12 }}>
+          <AreaChart
+            data={chartData}
+            margin={{ left: 8, right: 8, top: 4, bottom: 4 }}
+          >
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="period"
+              interval="preserveStartEnd"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
 
@@ -136,11 +146,11 @@ export function FinanceChart() {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              Financial trend looking {mode === "weekly" ? "stable" : "good"}{" "}
-              <TrendingUp className="h-4 w-4" />
+              Visual trend helps you make smarter decisions
+              <Lightbulb className="w-4 h-4" />
             </div>
             <div className="text-muted-foreground flex items-center gap-2 leading-none">
-              Based on {mode === "monthly" ? "6 months" : "6 weeks"} of data
+              Track and improve monthly.
             </div>
           </div>
         </div>

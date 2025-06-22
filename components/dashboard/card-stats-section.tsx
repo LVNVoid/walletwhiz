@@ -2,39 +2,45 @@
 
 import React, { useEffect, useState } from "react";
 import { StatsCard } from "../ui/stats-card";
+import api from "@/lib/axios";
+
+type Trend = {
+  direction: "up" | "down" | null;
+  value: number;
+};
 
 type Stats = {
-  income: number;
-  expense: number;
+  income: {
+    current: number;
+    trend: Trend;
+  };
+  expense: {
+    current: number;
+    trend: Trend;
+  };
   balance: number;
-  month: number | null;
-  year: number | null;
 };
 
 const CardStatsSection = () => {
   const [stats, setStats] = useState<Stats | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const now = new Date();
-    const month = now.getMonth() + 1;
-    const year = now.getFullYear();
-
     const fetchStats = async () => {
       try {
-        const res = await fetch(`/api/statistics?month=${month}&year=${year}`);
-        const data = await res.json();
-
-        console.log(data);
-        setStats(data);
+        const res = await api.get("/api/transactions/stats");
+        setStats(res.data.stats);
       } catch (err) {
         console.error("Failed to fetch stats:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchStats();
   }, []);
 
-  if (!stats) return <div>Loading...</div>;
+  if (loading || !stats) return <div>Loading...</div>;
 
   return (
     <>
@@ -42,24 +48,38 @@ const CardStatsSection = () => {
         title="Current Balance"
         value={formatRupiah(stats.balance)}
         iconName="Wallet"
-        description="Total available money"
+        description="Your current cash position — keep growing it!"
         isHighlighted={true}
       />
+
       <StatsCard
         title="Total Income"
-        value={formatRupiah(stats.income)}
+        value={formatRupiah(stats.income.current)}
         iconName="ArrowUpCircle"
-        description="Total income this month"
-        trend="up"
-        trendValue="+15.3%"
+        description="Earnings recorded this month. Well done!"
+        trend={stats.income.trend.direction ?? undefined}
+        trendValue={
+          stats.income.trend.direction
+            ? `${stats.income.trend.value > 0 ? "+" : ""}${
+                stats.income.trend.value
+              }%`
+            : "0%"
+        }
       />
+
       <StatsCard
         title="Total Expenses"
-        value={formatRupiah(stats.expense)}
+        value={formatRupiah(stats.expense.current)}
         iconName="ArrowDownCircle"
-        description="Total expenses this month"
-        trend="down"
-        trendValue="-8.2%"
+        description="Your spending so far — stay in control."
+        trend={stats.expense.trend.direction ?? undefined}
+        trendValue={
+          stats.expense.trend.direction
+            ? `${stats.expense.trend.value > 0 ? "+" : ""}${
+                stats.expense.trend.value
+              }%`
+            : "0%"
+        }
       />
     </>
   );

@@ -49,7 +49,6 @@ export const StatsCard: React.FC<StatsCardProps> = ({
   iconName,
   description,
   className,
-  variant = "default",
   trend,
   trendValue,
   isHighlighted = false,
@@ -79,7 +78,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
       case "up":
         return "text-[#00A550] dark:text-[#00A550]";
       case "down":
-        return "text-destructive";
+        return "text-red-500 dark:text-red-500/80";
       default:
         return "text-zinc-500 dark:text-zinc-400";
     }

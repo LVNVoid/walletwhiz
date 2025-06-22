@@ -6,7 +6,7 @@ const Header = () => {
   const onOpen = useTransactionModal((state) => state.onOpen);
 
   return (
-    <section className="flex flex-col gap-4 items-start justify-between sm:flex-row sm:items-center p-4">
+    <section className="flex flex-col gap-4 items-start justify-between sm:flex-row sm:items-center py-4">
       <div className="space-y-1">
         <h1 className="text-2xl sm:text-3xl font-bold">
           Welcome to WalletWhiz 👋
