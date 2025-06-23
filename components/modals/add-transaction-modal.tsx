@@ -26,6 +26,7 @@ import {
 } from "../ui/form";
 
 const formSchema = z.object({
+  name: z.string().min(1, "Name is required"),
   amount: z
     .number({ required_error: "Amount is required" })
     .positive("Amount must be positive"),
@@ -37,12 +38,13 @@ const formSchema = z.object({
   transactionDate: z.string().min(1, "Transaction date is required"),
 });
 
-export const TransactionModal = () => {
+export const AddTransactionModal = () => {
   const transactionModal = useTransactionModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      name: "",
       amount: 0,
       description: "",
       type: "expense",
@@ -73,12 +75,31 @@ export const TransactionModal = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
               control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="e.g. Salary, Rent, Utilities"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="description"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. Gaji bulanan" {...field} />
+                    <Input
+                      placeholder="e.g. Salary from ABC company"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -132,10 +153,7 @@ export const TransactionModal = () => {
                 <FormItem>
                   <FormLabel>Category</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="e.g. Gaji, Makan, Transportasi"
-                      {...field}
-                    />
+                    <Input placeholder="e.g. Food, Transportation" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

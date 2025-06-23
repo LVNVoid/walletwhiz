@@ -11,11 +11,12 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { amount, description, type, category, transactionDate } = body;
+    const { name, amount, description, type, category, transactionDate } = body;
 
     const transaction = await db.transactions.create({
       data: {
         userId,
+        name,
         amount: parseFloat(amount),
         type,
         category,

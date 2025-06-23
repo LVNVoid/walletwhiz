@@ -27,7 +27,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/(root)/dashboard/layout.jpg"
+    "app/(root)/dashboard/layout.jpg",
+    "app/(root)/transactions"
   ],
   "exclude": ["node_modules"]
 }

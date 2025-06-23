@@ -8,12 +8,21 @@ import {
   Calendar,
   TrendingUp,
   TrendingDown,
+  ArrowRight,
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import api from "@/lib/axios";
+import { Button } from "../ui/button";
+import { useRouter } from "next/navigation";
 
 type Transaction = {
   id: string;
@@ -26,6 +35,7 @@ type Transaction = {
 };
 
 export function RecentTransactions() {
+  const router = useRouter();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -81,19 +91,26 @@ export function RecentTransactions() {
 
   return (
     <Card className="w-full bg-background">
-      <CardHeader className="pb-4">
+      <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="text-xl font-bold flex items-center gap-2">
-            <div className="p-2 rounded-lg bg-primary/10">
-              <TrendingUp className="h-5 w-5 text-primary" />
-            </div>
-            Recent Transactions
-          </CardTitle>
-          {!loading && transactions.length > 0 && (
-            <Badge variant="secondary" className="text-xs">
-              {transactions.length} transactions
-            </Badge>
-          )}
+          <div>
+            <CardTitle className="">Recent Transactions</CardTitle>
+            <CardDescription>
+              Here&apos;s a list of your recent transactions.
+            </CardDescription>
+          </div>
+          <div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                router.push("/transactions");
+              }}
+            >
+              View all
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </CardHeader>
 

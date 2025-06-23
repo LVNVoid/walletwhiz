@@ -21,7 +21,7 @@ type Stats = {
   balance: number;
 };
 
-const CardStatsSection = () => {
+const DashboardStats = () => {
   const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -48,7 +48,7 @@ const CardStatsSection = () => {
         title="Current Balance"
         value={formatRupiah(stats.balance)}
         iconName="Wallet"
-        description="Your current cash position — keep growing it!"
+        description="Your current cash position."
         isHighlighted={true}
       />
 
@@ -93,4 +93,4 @@ function formatRupiah(amount: number): string {
   }).format(amount);
 }
 
-export default CardStatsSection;
+export default DashboardStats;
