@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { StatsCard } from "../ui/stats-card";
 import api from "@/lib/axios";
+import { formatRupiah } from "@/lib/utils";
 
 type Trend = {
   direction: "up" | "down" | null;
@@ -84,13 +85,5 @@ const DashboardStats = () => {
     </>
   );
 };
-
-function formatRupiah(amount: number): string {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  }).format(amount);
-}
 
 export default DashboardStats;

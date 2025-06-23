@@ -19,20 +19,11 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
+import { cn, formatRupiah } from "@/lib/utils";
 import api from "@/lib/axios";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
-
-type Transaction = {
-  id: string;
-  userId: string;
-  amount: number;
-  description?: string;
-  type: "income" | "expense";
-  category: string;
-  transactionDate: string;
-};
+import { Transaction } from "@/types/transaction";
 
 export function RecentTransactions() {
   const router = useRouter();
@@ -230,12 +221,4 @@ export function RecentTransactions() {
       </CardContent>
     </Card>
   );
-}
-
-function formatRupiah(amount: number): string {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-  }).format(amount);
 }
