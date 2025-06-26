@@ -3,22 +3,19 @@ import { auth } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Context {
-  params: {
+  params: Promise<{
     transactionId: string;
-  };
+  }>;
 }
 
-// GET /api/transactions/[transactionId]
 export async function GET(req: NextRequest, context: Context) {
   try {
     const { userId } = await auth();
-
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const { transactionId } = context.params;
-
+    const { transactionId } = await context.params;
     if (!transactionId) {
       return new NextResponse("Transaction ID not provided", { status: 400 });
     }
@@ -40,17 +37,14 @@ export async function GET(req: NextRequest, context: Context) {
   }
 }
 
-// DELETE /api/transactions/[transactionId]
 export async function DELETE(req: NextRequest, context: Context) {
   try {
     const { userId } = await auth();
-
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const { transactionId } = context.params;
-
+    const { transactionId } = await context.params;
     if (!transactionId) {
       return new NextResponse("Transaction ID not provided", { status: 400 });
     }
@@ -72,17 +66,14 @@ export async function DELETE(req: NextRequest, context: Context) {
   }
 }
 
-// PATCH /api/transactions/[transactionId]
 export async function PATCH(req: NextRequest, context: Context) {
   try {
     const { userId } = await auth();
-
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const { transactionId } = context.params;
-
+    const { transactionId } = await context.params;
     if (!transactionId) {
       return new NextResponse("Transaction ID not provided", { status: 400 });
     }
