@@ -1,154 +1,289 @@
-# 💸 WalletWhiz
+# 💰 WalletWhiz
 
-> A **personal finance companion** to help you track, understand, and manage your spending smarter, with rich visuals and delightful UI.
+<div align="center">
+  <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS" />
+  <img src="https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL" />
+</div>
 
-![Next.js](https://img.shields.io/badge/Next.js-000?logo=next.js&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?logo=tailwindcss&logoColor=white)
-![Clerk](https://img.shields.io/badge/Clerk-3E2EFF?logo=clerk&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
-![Prisma](https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white)
-![Zustand](https://img.shields.io/badge/Zustand-000000?logo=react&logoColor=white)
-![Recharts](https://img.shields.io/badge/Recharts-FF5A5F?logo=chart.js&logoColor=white)
-
----
-
-## ✨ Features
-
-- 🔐 **Secure Authentication** using [Clerk](https://clerk.dev)
-- 📊 **Dynamic Dashboard** with:
-  - Current balance, total income, total expenses
-  - Visual trends and charts (weekly & monthly)
-  - Recent transactions list
-- 💼 **Transaction Management**:
-  - Create, view, update, delete transactions
-  - Categorized by type, category, and date
-- 📈 **Data Visualization** with responsive charts
-- 🌗 **Dark/Light Theme Toggle**
-- 🧠 **State Management** using Zustand
-- ⚡ Fast & Responsive UI
+<div align="center">
+  <h3>🚀 A personal finance companion to help track, understand, and manage your spending smarter.</h3>
+  
+  [![License](https://img.shields.io/badge/License-All%20Rights%20Reserved-red.svg)](LICENSE)
+  [![GitHub issues](https://img.shields.io/github/issues/LVNVoid/walletwhiz)](https://github.com/LVNVoid/walletwhiz/issues)
+  [![GitHub stars](https://img.shields.io/github/stars/LVNVoid/walletwhiz)](https://github.com/LVNVoid/walletwhiz/stargazers)
+</div>
 
 ---
 
-## 🛠️ Tech Stack
+## ✨ Features and Functionality
 
-| Stack                                                                                                       | Description                             |
-| ----------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| ![Next.js](https://img.shields.io/badge/-Next.js-black?logo=next.js)                                        | React framework with App Router and SSR |
-| ![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?logo=typescript&logoColor=white)              | Strongly-typed JavaScript               |
-| ![Tailwind CSS](https://img.shields.io/badge/-TailwindCSS-06B6D4?logo=tailwindcss&logoColor=white)          | Utility-first CSS framework             |
-| ![Clerk](https://img.shields.io/badge/-Clerk-3E2EFF?logo=clerk&logoColor=white)                             | Authentication and user management      |
-| ![Prisma](https://img.shields.io/badge/-Prisma-2D3748?logo=prisma)                                          | Type-safe ORM for PostgreSQL            |
-| ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?logo=postgresql&logoColor=white)              | Relational database                     |
-| ![Zustand](https://img.shields.io/badge/-Zustand-black?logo=react)                                          | Global state management                 |
-| ![Recharts](https://img.shields.io/badge/-Recharts-FF5A5F?logo=chart.js)                                    | Chart library for visual data           |
-| ![Axios](https://img.shields.io/badge/-Axios-5A29E4?logo=axios&logoColor=white)                             | HTTP client                             |
-| ![React Hook Form](https://img.shields.io/badge/-React_Hook_Form-EC5990?logo=reacthookform&logoColor=white) | Forms & validation                      |
-| ![Zod](https://img.shields.io/badge/-Zod-3E82F7?logo=zod&logoColor=white)                                   | Schema validation                       |
-| ![Lucide](https://img.shields.io/badge/-Lucide-000000?logo=lucide&logoColor=white)                          | Icon set for modern apps                |
-| ![Radix UI](https://img.shields.io/badge/-Radix_UI-black?logo=radix-ui&logoColor=white)                     | Accessible UI primitives                |
+### 🔐 **User Authentication**
+- Secure sign-up and sign-in using **Clerk**
+- Protected routes and user session management
+
+### 📊 **Dashboard**
+- 💳 Overview of current balance, total income, and total expenses
+- 📈 Trend indicators to visualize financial health
+- 📉 Interactive finance charts (monthly and weekly views)
+- 🕐 Recent transactions list with quick actions
+
+### 💸 **Transaction Management**
+- ➕ Add new transactions with comprehensive details
+- 📋 View all transactions in a sortable, filterable table
+- ✏️ Edit existing transactions seamlessly
+- 🗑️ Delete transactions with confirmation
+- 🔍 Detailed transaction view with full information
+
+### 📈 **Data Visualization**
+- 📊 Interactive charts displaying income and expenses over time
+- 📉 Statistics and trends to understand spending habits
+- 🎯 Monthly and weekly financial insights
+
+### 🎨 **Theming**
+- 🌙 Toggle between light and dark themes
+- Consistent design across all components
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Technology Stack
 
-### 🔧 Prerequisites
+<table>
+<tr>
+<td align="center" width="96">
+<img src="https://skillicons.dev/icons?i=nextjs" width="48" height="48" alt="Next.js" />
+<br>Next.js
+</td>
+<td align="center" width="96">
+<img src="https://skillicons.dev/icons?i=react" width="48" height="48" alt="React" />
+<br>React
+</td>
+<td align="center" width="96">
+<img src="https://skillicons.dev/icons?i=typescript" width="48" height="48" alt="TypeScript" />
+<br>TypeScript
+</td>
+<td align="center" width="96">
+<img src="https://skillicons.dev/icons?i=tailwind" width="48" height="48" alt="Tailwind CSS" />
+<br>Tailwind CSS
+</td>
+<td align="center" width="96">
+<img src="https://skillicons.dev/icons?i=postgres" width="48" height="48" alt="PostgreSQL" />
+<br>PostgreSQL
+</td>
+</tr>
+<tr>
+<td align="center" width="96">
+<img src="https://skillicons.dev/icons?i=prisma" width="48" height="48" alt="Prisma" />
+<br>Prisma
+</td>
+<td align="center" width="96">
+<img src="https://avatars.githubusercontent.com/u/49538330?s=200&v=4" width="48" height="48" alt="Clerk" />
+<br>Clerk
+</td>
+<td align="center" width="96">
+<img src="https://user-images.githubusercontent.com/958486/218346783-72be5ae3-b953-4dd7-b239-788a882fdad6.svg" width="48" height="48" alt="Zustand" />
+<br>Zustand
+</td>
+<td align="center" width="96">
+<img src="https://react-hook-form.com/images/logo/react-hook-form-logo-only.png" width="48" height="48" alt="React Hook Form" />
+<br>React Hook Form
+</td>
+<td align="center" width="96">
+<img src="https://raw.githubusercontent.com/colinhacks/zod/HEAD/logo.svg" width="48" height="48" alt="Zod" />
+<br>Zod
+</td>
+</tr>
+</table>
 
-- Node.js `v18+`
-- npm or yarn
-- PostgreSQL instance
-- Clerk account and API keys
+### 📚 **Core Technologies**
+- **🔧 Next.js** - React framework for building server-rendered applications
+- **⚛️ React** - JavaScript library for building user interfaces
+- **📝 TypeScript** - Superset of JavaScript that adds static typing
+- **🎨 Tailwind CSS** - Utility-first CSS framework
 
-### 📥 Installation
+### 🔒 **Authentication & Database**
+- **🛡️ Clerk** - Authentication and user management
+- **🗄️ Prisma** - ORM for database access
+- **🐘 PostgreSQL** - Relational database
 
-```bash
-git clone https://github.com/LVNVoid/walletwhiz
-cd walletwhiz
-npm install # or yarn
+### 📊 **State Management & UI**
+- **🏪 Zustand** - Lightweight state management
+- **📋 React Hook Form & Zod** - Form management and validation
+- **📈 Recharts** - Beautiful charting library
+- **🌐 Axios** - HTTP client for API requests
+- **🎯 Lucide React** - Beautiful icon library
+- **🧩 Radix UI Primitives** - Unstyled, accessible UI primitives
+- **📅 react-day-picker** - Date picker component
+
+---
+
+## 🚀 Quick Start
+
+### 📋 Prerequisites
+
+- 📦 **Node.js** (v18 or higher)
+- 📦 **npm** or **yarn**
+- 🐘 **PostgreSQL** database
+- 🔑 **Clerk** account and API keys
+
+### 🔧 Installation
+
+1. **📥 Clone the repository:**
+   ```bash
+   git clone https://github.com/LVNVoid/walletwhiz
+   cd walletwhiz
+   ```
+
+2. **📦 Install dependencies:**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **⚙️ Set up environment variables:**
+   
+   Create a `.env.local` file in the root directory:
+   ```env
+   # Database Configuration
+   DATABASE_URL="your_postgresql_connection_string"
+   
+   # Clerk Authentication
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="your_clerk_publishable_key"
+   CLERK_SECRET_KEY="your_clerk_secret_key"
+   
+   # Application URLs
+   NEXT_PUBLIC_API_BASE_URL="http://localhost:3000"
+   NEXT_PUBLIC_CLERK_SIGN_IN_URL="/sign-in"
+   NEXT_PUBLIC_CLERK_SIGN_UP_URL="/sign-up"
+   NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL="/dashboard"
+   NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL="/dashboard"
+   ```
+
+   > 💡 **Configuration Guide:**
+   > - `DATABASE_URL`: PostgreSQL connection string (e.g., `postgresql://user:password@host:port/database?schema=public`)
+   > - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`: Found in your Clerk dashboard
+   > - `CLERK_SECRET_KEY`: ⚠️ Keep this secure and never expose it publicly
+
+4. **🗄️ Initialize database:**
+   ```bash
+   npx prisma migrate dev
+   ```
+   
+   > If you encounter issues, install Prisma CLI globally:
+   > ```bash
+   > npm install -g prisma
+   > ```
+
+5. **🏃‍♂️ Start the development server:**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+🎉 **Your application is now running at** `http://localhost:3000`
+
+---
+
+## 📖 Usage Guide
+
+### 1. 🔐 **Authentication**
+- Navigate to your local application
+- Click **"Get Started"** to create a new account
+- Or sign in with existing credentials
+
+### 2. 📊 **Dashboard Overview**
+- View your financial summary at a glance
+- Monitor income vs expenses trends
+- Check recent transaction activity
+
+### 3. 💸 **Managing Transactions**
+- **Add:** Click "Add Transaction" and fill out the comprehensive form
+- **Edit:** Use the dropdown menu in transaction rows to modify entries
+- **Delete:** Remove transactions with confirmation prompts
+- **View Details:** Click on any transaction for detailed information
+
+### 4. 🎨 **Customization**
+- Toggle between light and dark themes using the navbar switch
+- Enjoy consistent theming across all application components
+
+---
+
+## 🔌 API Documentation
+
+### 📡 **Transaction Endpoints**
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/transactions` | Create a new transaction |
+| `GET` | `/api/transactions` | Retrieve all user transactions |
+| `GET` | `/api/transactions/:id` | Get specific transaction |
+| `PATCH` | `/api/transactions/:id` | Update transaction |
+| `DELETE` | `/api/transactions/:id` | Delete transaction |
+| `GET` | `/api/transactions/recent` | Get 5 most recent transactions |
+| `GET` | `/api/transactions/stats` | Get monthly statistics |
+| `GET` | `/api/transactions/stats/overview` | Get overview data (monthly/weekly) |
+
+### 📝 **Request Examples**
+
+**Create Transaction:**
+```json
+{
+  "name": "Salary",
+  "amount": 5000000,
+  "description": "Monthly salary from ABC Company",
+  "type": "income",
+  "category": "Income",
+  "transactionDate": "2024-01-01"
+}
 ```
 
-### 🔑 Configure Environment
-
-Create a `.env.local` file and populate:
-
-```env
-DATABASE_URL="your_postgresql_connection_string"
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="your_clerk_publishable_key"
-CLERK_SECRET_KEY="your_clerk_secret_key"
-NEXT_PUBLIC_API_BASE_URL="http://localhost:3000"
-NEXT_PUBLIC_CLERK_SIGN_IN_URL="/sign-in"
-NEXT_PUBLIC_CLERK_SIGN_UP_URL="/sign-up"
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL="/dashboard"
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL="/dashboard"
-```
-
-### 🛠️ Prisma Migrations
-
-```bash
-npx prisma migrate dev
-```
-
-### 🧪 Run Development Server
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Visit `http://localhost:3000` in your browser.
+**Query Parameters:**
+- `/api/transactions/stats/overview?mode=weekly` - Weekly overview
+- `/api/transactions/stats/overview?mode=monthly` - Monthly overview
 
 ---
 
-## 📚 Usage Guide
+## 🤝 Contributing
 
-1. **Sign Up / Sign In**  
-   Use the "Get Started" button on the home page.
+We welcome contributions! Here's how you can help:
 
-2. **Dashboard**  
-   View balance, income, expenses, trends, and recent transactions.
+1. 🍴 **Fork** the repository
+2. 🌿 **Create** a new branch for your feature
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. 💻 **Make** your changes
+4. ✅ **Write** tests for your changes
+5. 📤 **Submit** a pull request
 
-3. **Transactions**  
-   Add, edit, or delete transactions via modals. View full details per entry.
-
-4. **Theme Toggle**  
-   Switch between dark/light mode via toggle in navbar.
-
----
-
-## 📡 API Endpoints
-
-| Method | Endpoint                                       | Description                 |
-| ------ | ---------------------------------------------- | --------------------------- |
-| POST   | `/api/transactions`                            | Create a new transaction    |
-| GET    | `/api/transactions`                            | Get all user transactions   |
-| GET    | `/api/transactions/:transactionId`             | Get transaction by ID       |
-| PATCH  | `/api/transactions/:transactionId`             | Update transaction by ID    |
-| DELETE | `/api/transactions/:transactionId`             | Delete transaction by ID    |
-| GET    | `/api/transactions/recent`                     | Fetch last 5 transactions   |
-| GET    | `/api/transactions/stats`                      | Monthly finance summary     |
-| GET    | `/api/transactions/stats/overview?mode=weekly` | Trend data (weekly/monthly) |
-
----
-
-## 🧑‍💻 Contributing
-
-We welcome contributions!  
-To contribute:
-
-1. Fork this repo
-2. Create a branch: `git checkout -b feat/amazing-feature`
-3. Make your changes and commit: `git commit -m 'feat: add amazing feature'`
-4. Push and submit a pull request
+### 🔍 **Development Guidelines**
+- Follow TypeScript best practices
+- Maintain consistent code formatting
+- Write meaningful commit messages
+- Update documentation when needed
 
 ---
 
 ## 📄 License
 
-Currently not licensed. All rights reserved.
+This project is **All Rights Reserved**. Please contact the repository owner for usage permissions.
 
 ---
 
-## 📬 Contact
+## 📞 Support & Contact
 
-Feel free to open an [issue](https://github.com/LVNVoid/walletwhiz/issues) or contact me via GitHub for support or suggestions.
+- 🐛 **Issues**: [GitHub Issues](https://github.com/LVNVoid/walletwhiz/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/LVNVoid/walletwhiz/discussions)
+- 📧 **Contact**: Repository owner through GitHub
+
+---
+
+<div align="center">
+  <p>Made with ❤️ by <a href="https://github.com/LVNVoid">LVNVoid</a></p>
+  
+  ⭐ **Star this repository if you find it helpful!**
+</div>
