@@ -47,7 +47,7 @@ export async function DELETE(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const { transactionId } = params;
+    const { transactionId } = await params;
 
     if (!transactionId) {
       return new NextResponse("Transaction ID not provided", { status: 400 });
@@ -81,7 +81,7 @@ export async function PATCH(
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    const { transactionId } = params;
+    const { transactionId } = await params;
 
     if (!transactionId) {
       return new NextResponse("Transaction ID not provided", { status: 400 });
@@ -90,7 +90,7 @@ export async function PATCH(
     const body = await req.json();
     const { name, amount, description, type, category, transactionDate } = body;
 
-    const transactions = await db.transactions.updateMany({
+    const transactions = await db.transactions.update({
       where: {
         userId,
         id: transactionId,

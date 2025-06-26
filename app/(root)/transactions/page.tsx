@@ -1,14 +1,15 @@
 "use client";
 
 import { AddTransactionModal } from "@/components/modals/add-transaction-modal";
+import { EditTransactionModal } from "@/components/modals/edit-transaction-modal";
 import TransactionTable from "@/components/transactions/table/transaction-table";
 import { HeaderPage } from "@/components/ui/header-page";
 import { useTransactionModal } from "@/hooks/use-transaction-modal";
 import { PlusCircle } from "lucide-react";
-import React from "react";
 
 const TransactionsPage = () => {
   const onOpen = useTransactionModal((state) => state.onOpen);
+
   return (
     <div className="space-y-4 py-4 px-2 sm:px-4">
       <HeaderPage
@@ -20,6 +21,7 @@ const TransactionsPage = () => {
       />
       <TransactionTable />
       <AddTransactionModal />
+      <EditTransactionModal />
     </div>
   );
 };

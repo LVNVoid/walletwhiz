@@ -1,41 +1,37 @@
 "use client";
 
-import api from "@/lib/axios";
 import { useEffect, useState } from "react";
 import { DataTable } from "./data-table";
 import { columns as baseColumns } from "./columns";
 import { AlertModal } from "@/components/modals/alert-modal";
 import toast from "react-hot-toast";
-import { Transaction } from "@/types/transaction";
+import { useTransactionStore } from "@/stores/transaction-store";
 
 const TransactionTable = () => {
-  const [data, setData] = useState<Transaction[]>([]);
+  const transactions = useTransactionStore((state) => state.transactions);
+  const fetchTransactions = useTransactionStore(
+    (state) => state.fetchTransactions
+  );
+  const deleteTransaction = useTransactionStore(
+    (state) => state.deleteTransaction
+  );
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
 
-  const fetchData = async () => {
-    try {
-      const res = await api.get("/api/transactions");
-      setData(res.data);
-    } catch (error) {
-      console.error("Failed to fetch transactions:", error);
-    }
-  };
-
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchTransactions();
+  }, [fetchTransactions]);
 
   const onConfirmDelete = async () => {
     if (!selectedId) return;
     setLoading(true);
     try {
-      await api.delete(`/api/transactions/${selectedId}`);
+      await fetch(`/api/transactions/${selectedId}`, { method: "DELETE" });
       toast.success("Transaction deleted");
-      await fetchData();
+      deleteTransaction(selectedId);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Failed to delete transaction");
     } finally {
       setLoading(false);
@@ -49,14 +45,13 @@ const TransactionTable = () => {
     setOpen(true);
   };
 
-  const columns = baseColumns({ onDelete: handleDeleteClick });
+  const columns = baseColumns({
+    onDelete: handleDeleteClick,
+  });
 
   return (
     <>
-      <div>
-        <DataTable columns={columns} data={data} />
-      </div>
-
+      <DataTable columns={columns} data={transactions} />
       <AlertModal
         isOpen={open}
         onClose={() => {

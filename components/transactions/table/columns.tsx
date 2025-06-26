@@ -13,6 +13,7 @@ import { ChevronDown } from "lucide-react";
 import { TypeBadge } from "@/components/ui/badge-type";
 import { useRouter } from "next/navigation";
 import { Transaction } from "@/types/transaction";
+import { useEditTransactionModal } from "@/hooks/use-edit-transaction-modal";
 
 interface ActionMenuProps {
   transaction: Transaction;
@@ -21,6 +22,7 @@ interface ActionMenuProps {
 
 function ActionMenu({ transaction, onDelete }: ActionMenuProps) {
   const router = useRouter();
+  const editModal = useEditTransactionModal();
 
   return (
     <DropdownMenu>
@@ -36,7 +38,7 @@ function ActionMenu({ transaction, onDelete }: ActionMenuProps) {
         >
           Detail
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => console.log("Edit", transaction)}>
+        <DropdownMenuItem onClick={() => editModal.onOpen(transaction)}>
           Edit
         </DropdownMenuItem>
         <DropdownMenuItem

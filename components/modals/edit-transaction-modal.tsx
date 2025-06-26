@@ -1,21 +1,10 @@
 "use client";
 
-import { useTransactionModal } from "@/hooks/use-transaction-modal";
+import { useState, useEffect } from "react";
 import Modal from "../ui/modal";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "../ui/select";
-import { format } from "date-fns";
-import api from "@/lib/axios";
 import {
   Form,
   FormControl,
@@ -24,57 +13,77 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import { Input } from "../ui/input";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "../ui/select";
+import { Button } from "../ui/button";
+import { Loader2, Save } from "lucide-react";
+import api from "@/lib/axios";
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
-import { Loader2, Plus } from "lucide-react";
 import { useTransactionStore } from "@/stores/transaction-store";
+import { useEditTransactionModal } from "@/hooks/use-edit-transaction-modal";
 
 const formSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  name: z.string().min(1),
+  description: z.string().min(3),
   amount: z
     .number({ required_error: "Amount is required" })
     .positive("Amount must be positive"),
-  description: z.string().min(3, "Description must be at least 3 characters"),
-  type: z.enum(["income", "expense"], {
-    required_error: "Type is required",
-  }),
-  category: z.string().min(1, "Category is required"),
-  transactionDate: z.string().min(1, "Transaction date is required"),
+  type: z.enum(["income", "expense"]),
+  category: z.string().min(1),
+  transactionDate: z.string().min(1),
 });
 
-export const AddTransactionModal = () => {
-  const transactionModal = useTransactionModal();
-  const addTransaction = useTransactionStore((state) => state.addTransaction);
+export const EditTransactionModal = () => {
+  const { isOpen, transaction, onClose } = useEditTransactionModal();
+
   const [isLoading, setIsLoading] = useState(false);
+  const updateTransaction = useTransactionStore((s) => s.updateTransaction);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      amount: 0,
       description: "",
+      amount: 0,
       type: "expense",
       category: "",
-      transactionDate: format(new Date(), "yyyy-MM-dd"),
+      transactionDate: "",
     },
   });
 
   useEffect(() => {
-    const resetForm = () => form.reset();
-    transactionModal.setOnAfterClose(resetForm);
-  }, []);
+    if (transaction) {
+      form.reset({
+        name: transaction.name,
+        description: transaction.description ?? "",
+        amount: Number(transaction.amount),
+        type: transaction.type,
+        category: transaction.category,
+        transactionDate: transaction.transactionDate.split("T")[0],
+      });
+    }
+  }, [transaction, form]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    if (!transaction) return;
     setIsLoading(true);
     try {
-      const res = await api.post("/api/transactions", values);
-      addTransaction(res.data);
-      transactionModal.onClose();
-      form.reset();
-      toast.success("Transaction submitted successfully");
+      const res = await api.patch(
+        `/api/transactions/${transaction.id}`,
+        values
+      );
+      updateTransaction(res.data);
+      toast.success("Transaction updated");
+      onClose();
     } catch (error) {
-      console.error("Failed to submit transaction:", error);
-      toast.error("Failed to submit transaction");
+      console.error(error);
+      toast.error("Failed to update transaction");
     } finally {
       setIsLoading(false);
     }
@@ -82,10 +91,10 @@ export const AddTransactionModal = () => {
 
   return (
     <Modal
-      title="Add New Transaction"
-      description="Please complete the form to record a new transaction."
-      isOpen={transactionModal.isOpen}
-      onClose={transactionModal.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Edit Transaction"
+      description="Update your transaction details."
     >
       <div className="py-4">
         <Form {...form}>
@@ -97,10 +106,7 @@ export const AddTransactionModal = () => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="e.g. Salary, Rent, Utilities"
-                      {...field}
-                    />
+                    <Input {...field} placeholder="Transaction name" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -113,10 +119,7 @@ export const AddTransactionModal = () => {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="e.g. Salary from ABC company"
-                      {...field}
-                    />
+                    <Input {...field} placeholder="Description" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -131,7 +134,6 @@ export const AddTransactionModal = () => {
                   <FormControl>
                     <Input
                       type="number"
-                      placeholder="e.g. 500000"
                       {...field}
                       onChange={(e) =>
                         field.onChange(parseFloat(e.target.value))
@@ -148,7 +150,7 @@ export const AddTransactionModal = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Type</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}>
+                  <Select value={field.value} onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select type" />
@@ -170,7 +172,7 @@ export const AddTransactionModal = () => {
                 <FormItem>
                   <FormLabel>Category</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. Food, Transportation" {...field} />
+                    <Input {...field} placeholder="Category" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -189,22 +191,22 @@ export const AddTransactionModal = () => {
                 </FormItem>
               )}
             />
-            <div className="pt-4 flex justify-end space-x-2">
+            <div className="flex justify-end gap-2 pt-4">
               <Button
                 type="button"
                 variant="outline"
-                onClick={transactionModal.onClose}
+                onClick={onClose}
                 disabled={isLoading}
               >
                 Cancel
               </Button>
               <Button type="submit" disabled={isLoading}>
                 {isLoading ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin" />
                 ) : (
-                  <Plus className="h-4 w-4" />
+                  <Save className="w-4 h-4 mr-2" />
                 )}
-                <span>Submit</span>
+                Save
               </Button>
             </div>
           </form>
