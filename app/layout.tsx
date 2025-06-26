@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "@/components/theme-provider";
 import { dark } from "@clerk/themes";
 import { cn } from "@/lib/utils";
@@ -36,6 +37,7 @@ export default function RootLayout({
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Toaster />
             {children}
           </ThemeProvider>
         </body>

@@ -24,6 +24,9 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import { Loader2, Plus } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -40,6 +43,7 @@ const formSchema = z.object({
 
 export const AddTransactionModal = () => {
   const transactionModal = useTransactionModal();
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,12 +58,17 @@ export const AddTransactionModal = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
     try {
       await api.post("/api/transactions", values);
       transactionModal.onClose();
       form.reset();
+      toast.success("Transaction submitted successfully");
     } catch (error) {
       console.error("Failed to submit transaction:", error);
+      toast.error("Failed to submit transaction");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -177,10 +186,18 @@ export const AddTransactionModal = () => {
                 type="button"
                 variant="outline"
                 onClick={transactionModal.onClose}
+                disabled={isLoading}
               >
                 Cancel
               </Button>
-              <Button type="submit">Save</Button>
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Plus className="h-4 w-4" />
+                )}
+                <span>Submit</span>
+              </Button>
             </div>
           </form>
         </Form>

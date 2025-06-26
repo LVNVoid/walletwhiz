@@ -125,13 +125,13 @@ const DetailItem = ({
 );
 
 const TransactionDetailSkeleton = () => (
-  <div className="py-4 px-2 sm:px-4 max-w-4xl mx-auto">
+  <div className="py-4 px-2 sm:px-4 mx-auto">
     <div className="space-y-4">
       <Skeleton className="h-10 w-1/3" />
       <Skeleton className="h-5 w-1/2" />
     </div>
 
-    <div className="mt-8 bg-card rounded-lg border shadow-sm">
+    <div className="mt-8 bg-background rounded-lg border shadow-sm">
       <div className="p-6 border-b space-y-4">
         <div className="flex items-center gap-4">
           <Skeleton className="h-8 w-3/4" />
