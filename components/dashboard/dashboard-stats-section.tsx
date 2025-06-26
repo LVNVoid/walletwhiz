@@ -4,23 +4,7 @@ import React, { useEffect, useState } from "react";
 import { StatsCard } from "../ui/stats-card";
 import api from "@/lib/axios";
 import { formatRupiah } from "@/lib/utils";
-
-type Trend = {
-  direction: "up" | "down" | null;
-  value: number;
-};
-
-type Stats = {
-  income: {
-    current: number;
-    trend: Trend;
-  };
-  expense: {
-    current: number;
-    trend: Trend;
-  };
-  balance: number;
-};
+import { Stats } from "@/types/stats";
 
 const DashboardStats = () => {
   const [stats, setStats] = useState<Stats | null>(null);

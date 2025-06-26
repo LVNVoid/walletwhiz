@@ -12,19 +12,14 @@ import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import { TypeBadge } from "@/components/ui/badge-type";
 import { useRouter } from "next/navigation";
+import { Transaction } from "@/types/transaction";
 
-export type Transaction = {
-  id: string;
-  name: string;
-  userId: string;
-  amount: number;
-  description?: string;
-  type: "income" | "expense";
-  category: string;
-  transactionDate: string;
-};
+interface ActionMenuProps {
+  transaction: Transaction;
+  onDelete: (id: string) => void;
+}
 
-function ActionMenu({ transaction }: { transaction: Transaction }) {
+function ActionMenu({ transaction, onDelete }: ActionMenuProps) {
   const router = useRouter();
 
   return (
@@ -45,7 +40,7 @@ function ActionMenu({ transaction }: { transaction: Transaction }) {
           Edit
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => console.log("Delete", transaction)}
+          onClick={() => onDelete(transaction.id)}
           className="text-red-600"
         >
           Delete
@@ -55,7 +50,9 @@ function ActionMenu({ transaction }: { transaction: Transaction }) {
   );
 }
 
-export const columns: ColumnDef<Transaction>[] = [
+export const columns = (params: {
+  onDelete: (id: string) => void;
+}): ColumnDef<Transaction>[] => [
   {
     accessorKey: "name",
     header: "Name",
@@ -105,7 +102,9 @@ export const columns: ColumnDef<Transaction>[] = [
     id: "actions",
     header: "",
     cell: ({ row }) => {
-      return <ActionMenu transaction={row.original} />;
+      return (
+        <ActionMenu transaction={row.original} onDelete={params.onDelete} />
+      );
     },
   },
 ];

@@ -25,6 +25,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import api from "@/lib/axios";
+import { ChartData } from "@/types/stats";
 
 const chartConfig = {
   income: {
@@ -38,11 +39,6 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function FinanceChart() {
-  type ChartData = {
-    period: string;
-    income: number;
-    expenses: number;
-  };
   const [chartData, setChartData] = useState<ChartData[]>([]);
   const [mode, setMode] = useState<"monthly" | "weekly">("monthly");
 
