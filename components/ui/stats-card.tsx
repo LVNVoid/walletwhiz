@@ -109,7 +109,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
       {/* Subtle background pattern */}
       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-zinc-50/50 dark:to-zinc-800/20" />
 
-      <CardContent className="relative px-4 py-5 sm:p-6 md:p-7 min-w-0 break-words">
+      <CardContent className="relative px-4 md:py-4 min-w-0 break-words">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 space-y-2">
             <p className={cn("text-sm font-medium", styles.title)}>{title}</p>

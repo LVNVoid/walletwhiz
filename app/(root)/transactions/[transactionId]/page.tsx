@@ -6,8 +6,17 @@ import { formatRupiah } from "@/lib/utils";
 import { Transaction } from "@/types/transaction";
 import React, { useEffect, useState, use } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarDays, CircleDollarSign, List, FileText } from "lucide-react";
+import {
+  CalendarDays,
+  CircleDollarSign,
+  List,
+  FileText,
+  Trash,
+} from "lucide-react";
 import { TypeBadge } from "@/components/ui/badge-type";
+import toast from "react-hot-toast";
+import { AlertModal } from "@/components/modals/alert-modal";
+import { useRouter } from "next/navigation";
 
 const TransactionDetail = ({
   params,
@@ -17,6 +26,9 @@ const TransactionDetail = ({
   const { transactionId } = use(params);
   const [data, setData] = useState<Transaction | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +45,21 @@ const TransactionDetail = ({
 
     if (transactionId) fetchData();
   }, [transactionId]);
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    try {
+      await api.delete(`/api/transactions/${transactionId}`);
+      toast.success("Transaction deleted");
+      router.push("/transactions");
+    } catch (error) {
+      toast.error("Failed to delete transaction");
+      console.error("Delete error:", error);
+    } finally {
+      setIsDeleting(false);
+      setIsModalOpen(false);
+    }
+  };
 
   if (loading) return <TransactionDetailSkeleton />;
 
@@ -54,6 +81,16 @@ const TransactionDetail = ({
       <HeaderPage
         title="Transaction Details"
         description="Detailed information about your transaction"
+        buttonText="Delete"
+        onButtonClick={() => setIsModalOpen(true)}
+        buttonIcon={<Trash className="w-4 h-4" />}
+      />
+
+      <AlertModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleDelete}
+        loading={isDeleting}
       />
 
       <div className="mt-8 rounded-lg border">
