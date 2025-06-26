@@ -4,29 +4,20 @@ import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { transactionId: string } }
+  context: { params: { transactionId: string } }
 ) {
   try {
     const { userId } = await auth();
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
-    const { transactionId } = await params;
+    const { transactionId } = context.params;
 
-    if (!transactionId) {
-      return new NextResponse("Transaction ID not provided", { status: 400 });
-    }
-
-    const transactions = await db.transactions.findFirst({
-      where: {
-        userId,
-        id: transactionId,
-      },
+    const transaction = await db.transactions.findFirst({
+      where: { userId, id: transactionId },
     });
 
-    return NextResponse.json(transactions);
+    return NextResponse.json(transaction);
   } catch (error) {
     console.error("[TRANSACTION_GET ERROR]", error);
     return new NextResponse(
@@ -38,29 +29,20 @@ export async function GET(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { transactionId: string } }
+  context: { params: { transactionId: string } }
 ) {
   try {
     const { userId } = await auth();
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
-    const { transactionId } = await params;
+    const { transactionId } = context.params;
 
-    if (!transactionId) {
-      return new NextResponse("Transaction ID not provided", { status: 400 });
-    }
-
-    const transactions = await db.transactions.deleteMany({
-      where: {
-        userId,
-        id: transactionId,
-      },
+    const deleted = await db.transactions.deleteMany({
+      where: { userId, id: transactionId },
     });
 
-    return NextResponse.json(transactions);
+    return NextResponse.json(deleted);
   } catch (error) {
     console.error("[TRANSACTION_DELETE ERROR]", error);
     return new NextResponse(
@@ -72,29 +54,19 @@ export async function DELETE(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { transactionId: string } }
+  context: { params: { transactionId: string } }
 ) {
   try {
     const { userId } = await auth();
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
-    const { transactionId } = await params;
-
-    if (!transactionId) {
-      return new NextResponse("Transaction ID not provided", { status: 400 });
-    }
-
+    const { transactionId } = context.params;
     const body = await req.json();
     const { name, amount, description, type, category, transactionDate } = body;
 
-    const transactions = await db.transactions.update({
-      where: {
-        userId,
-        id: transactionId,
-      },
+    const updated = await db.transactions.update({
+      where: { userId, id: transactionId },
       data: {
         name,
         amount: parseFloat(amount),
@@ -105,7 +77,7 @@ export async function PATCH(
       },
     });
 
-    return NextResponse.json(transactions);
+    return NextResponse.json(updated);
   } catch (error) {
     console.error("[TRANSACTION_PATCH ERROR]", error);
     return new NextResponse(
